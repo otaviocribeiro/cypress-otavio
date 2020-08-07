@@ -23,25 +23,25 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks do codigo do projeto
+    # Checkout do codigo do projeto
     - uses: actions/checkout@v2
-      
-    # Setup node.JS
-    - name: Configurar node js
+     
+    # Setup do Node.JS 
+    - name: Setup Node.js environment
       uses: actions/setup-node@v2.1.1
       with:
         node-version: ${{ matrix.node-version }} 
-        
-    # instalando dependencias
-    - run: npm install  
     
-    # executar os teste usando o cucumber
-    - run: npm cy:run:cucumber
+    # instalando as dependencias
+    - run: npm install
+    
+    # executar os testes usando o cucumber
+    - run: npm run cy:run:cucumber
     
     # gerar o relatorio em html
     - run: npm run report:cucumber
     
-    # public retatório em html
+    # publicar relatorio em html
     - name: Deploy to GithubPages
       uses: JamesIves/github-pages-deploy-action@3.5.9
       with:
